@@ -1,0 +1,15 @@
+name: Terraform Apply
+on:
+  push:
+    branches: [main]
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+      - run: terraform init -input=false
+      - run: terraform apply -auto-approve -input=false -no-color
